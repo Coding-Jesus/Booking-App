@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdLocationOn } from 'react-icons/md';
+import { FaRegTimesCircle } from 'react-icons/fa';
+import { HiOutlineArrowCircleRight, HiOutlineArrowCircleLeft } from 'react-icons/hi';
 import Header from '../../components/header/Header';
 import Navbar from '../../components/navbar/Navbar';
 import MailList from '../../components/mailList/MailList';
@@ -7,6 +9,10 @@ import Footer from '../../components/footer/Footer'
 import './hotel.css';
 
 const Hotels = () => {
+
+    const [slideNum, setSlideNum] = useState(0);
+    const [open, setOpen] = useState(false);
+
     const photos = [
         {
             src: "/images/aptmadrid.png"
@@ -27,11 +33,37 @@ const Hotels = () => {
             src: "/images/prauge.png"
         }
     ]
+
+    const handleOpen = (i) => {
+        setSlideNum(i);
+        setOpen(true);
+    };
+
+    const handleMove = (direction) => {
+        let newSlideNum;
+
+        if (direction === "l") {
+            newSlideNum = slideNum === 0 ? 5 : slideNum - 1
+        } else {
+            newSlideNum = slideNum === 5 ? 0 : slideNum + 1
+        }
+        setSlideNum(newSlideNum)
+    }
+
     return (
         <div>
             <Navbar />
             <Header type="list" />
             <div className="hotelContainer">
+                {open && <div className="slider">
+                    <FaRegTimesCircle className='close' onClick={() => setOpen(false)} />
+                    <HiOutlineArrowCircleLeft className='arrow' onClick={() => handleMove("l")} />
+                    <div className="slideWrapper">
+                        <img src={photos[slideNum].src} alt="Slider" className="sliderImg" />
+                    </div>
+                    <HiOutlineArrowCircleRight className='arrow' onClick={() => handleMove("r")} />
+
+                </div>}
                 <div className="hotelWrapper">
                     <div className="hotelTitle">Grand Hotel</div>
                     <div className="hotelAddress">
@@ -45,9 +77,9 @@ const Hotels = () => {
                         Book a stay over $114 at this property and get a free airport taxi
                     </span>
                     <div className="hotelImages">
-                        {photos.map((photos) => (
+                        {photos.map((photos, i) => (
                             <div className="hotelImgWrapper">
-                                <img src={photos.src} alt="hotelImage" className="hotelImg" />
+                                <img onClick={() => handleOpen(i)} src={photos.src} alt="hotelImage" className="hotelImg" />
                             </div>
                         ))}
                     </div>
