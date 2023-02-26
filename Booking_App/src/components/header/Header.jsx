@@ -5,12 +5,15 @@ import { MdPersonAdd } from 'react-icons/md';
 import { BiCalendar } from 'react-icons/bi';
 import { DateRange } from 'react-date-range';
 import { format } from 'date-fns'
+import { useNavigate } from 'react-router-dom';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
 
 const Header = ({ type }) => {
+
     const [openDate, setOpenDate] = useState(false);
+    const [destination, setDestination] = useState(false);
     const [date, setDate] = useState([
         {
             startDate: new Date(),
@@ -34,6 +37,12 @@ const Header = ({ type }) => {
         children: 1,
         room: 1,
     });
+
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        navigate("/hotels", { state: { destination, date, options } })
+    };
 
     return (
         <div className='header'>
@@ -80,7 +89,8 @@ const Header = ({ type }) => {
 
                                 <input type="text"
                                     placeholder='where are you going?'
-                                    className="headerSearchInput" />
+                                    className="headerSearchInput"
+                                    onChange={e => setDestination(e.target.value)} />
 
                             </div>
 
@@ -95,7 +105,8 @@ const Header = ({ type }) => {
                                     onChange={item => setDate([item.selection])}
                                     moveRangeOnFirstSelection={false}
                                     ranges={date}
-                                    className="date" />}
+                                    className="date"
+                                    minDate={new Date()} />}
 
                             </div>
 
@@ -177,6 +188,7 @@ const Header = ({ type }) => {
                             </div>
                             <div className='headerSearchItem'>
                                 <button className="headerBtn"
+                                    onClick={handleSearch}
                                 >
                                     Search
                                 </button>
