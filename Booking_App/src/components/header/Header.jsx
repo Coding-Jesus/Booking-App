@@ -72,10 +72,6 @@ const Header = ({ type }) => {
                             Get rewarded for your travels  unlock instant savings of 10% or
                             more with a free FlashBooks account.
                         </p>
-                        <button className="headerBtn"
-                        >
-                            Sign in / Register
-                        </button>
                         <div className="headerSearch"
                         >
                             <div className="headerSearchItem"
@@ -115,7 +111,7 @@ const Header = ({ type }) => {
                                         <span className="optionText">
                                             Adult
                                         </span>
-                                        <div className="optionCounter">
+                                        <div className="optionCounterA">
                                             <button
                                                 disabled={options.adult <= 1}
                                                 className="optionCounterButton"
@@ -136,7 +132,7 @@ const Header = ({ type }) => {
                                     </div>
                                     <div className="optionItem">
                                         <span className="optionText">Children</span>
-                                        <div className="optionCounter">
+                                        <div className="optionCounterB">
                                             <button
                                                 disabled={options.children <= 0}
                                                 className="optionCounterButton"
@@ -157,7 +153,7 @@ const Header = ({ type }) => {
                                     </div>
                                     <div className="optionItem">
                                         <span className="optionText">Room</span>
-                                        <div className="optionCounter">
+                                        <div className="optionCounterC">
                                             <button
                                                 disabled={options.room <= 1}
                                                 className="optionCounterButton"
